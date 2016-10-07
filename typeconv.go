@@ -69,7 +69,25 @@ func InterfaceToInt(input interface{}) (int, error) {
 			} else {
 				return int(f), nil
 			}
-			//			return 0, errors.New("Not a Integer")
+		}
+	}
+}
+
+func InterfaceToInt64(input interface{}) (int64, error) {
+	if _, ok := input.(string); ok {
+		return 0, errors.New("Not a number")
+	} else {
+		if i, ok := input.(int64); ok {
+			return i, nil
+		} else {
+			f := input.(float64)
+			c := math.Ceil(f)
+			if c == f {
+				i := int64(f)
+				return i, nil
+			} else {
+				return int64(f), nil
+			}
 		}
 	}
 }
