@@ -106,3 +106,7 @@ func InterfaceToBool(input interface{}) (bool, error) {
 		return false, errors.New("Not a boolean")
 	}
 }
+
+func main() {
+	return
+}
