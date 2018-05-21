@@ -28,6 +28,11 @@ func StringToMap(input string, out *map[string]interface{}) error {
 	return err
 }
 
+func ByteArrayToMap(input []byte, out *map[string]interface{}) error {
+	err := json.Unmarshal(input, out)
+	return err
+}
+
 func InterfaceToString(input interface{}) string {
 	if input == nil {
 		return ""
@@ -56,6 +61,9 @@ func InterfaceToString(input interface{}) string {
 
 func InterfaceToInt(input interface{}) (int, error) {
 	if _, ok := input.(string); ok {
+		if i, err := strconv.Atoi(InterfaceToString(input)); err == nil {
+			return i, nil
+		}
 		return 0, errors.New("Not a number")
 	} else {
 		if i, ok := input.(int); ok {
@@ -75,6 +83,9 @@ func InterfaceToInt(input interface{}) (int, error) {
 
 func InterfaceToInt64(input interface{}) (int64, error) {
 	if _, ok := input.(string); ok {
+		if i, err := strconv.ParseInt(InterfaceToString(input), 10, 64); err == nil {
+			return i, nil
+		}
 		return 0, errors.New("Not a number")
 	} else {
 		if i, ok := input.(int64); ok {
